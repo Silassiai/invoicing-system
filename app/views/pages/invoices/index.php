@@ -5,4 +5,11 @@
  * Date: 25-11-2018
  * Time: 0:14
  */
-echo 'invoices page';
+;?>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <?php echo $invoices; ?>
+        </div>
+    </div>
+</div>

@@ -15,8 +15,7 @@ class Invoice extends Controller
 {
     public function index(){
         $this->model = new ModelInvoice();
-        $data['invoices'] = $this->model->getInvoices();
-        dd($data['invoices']);
+        $data['invoices'] = $this->paginate($this->model->getInvoices());
         $this->view('templates/header');
         $this->view('pages/invoices/index', $data);
         $this->view('templates/footer');

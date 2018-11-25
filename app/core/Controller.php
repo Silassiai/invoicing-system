@@ -27,7 +27,7 @@ class Controller
         }
         extract($data);
         $data = null;
-        require_once SDR_PATH_VIEW . DIRECTORY_SEPARATOR . $file . '.php';
+        require_once SDR_PATH_VIEW . $file . '.php';
     }
 
     /**
@@ -62,5 +62,46 @@ class Controller
     {
         http_response_code(404);
         echo '404 page';
+    }
+
+    public function paginate(array $result = [], $step = 5){
+        $columns = array_keys($result[0]);
+        $table = '<table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>';
+        foreach($columns as $column){
+            $table .= '<th>'.$column.'</th>';
+        }
+        $table .= '
+                    </tr>
+                    </thead>
+                    <tbody>';
+        foreach($result as $columns){
+            $table .= '<tr>';
+            foreach($columns as $column){
+                $table .= '<td>'.$column.'</td>';
+            }
+            $table .= '</tr>';
+        }
+        $table .= '</tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>';
+        foreach($columns as $column){
+            $table .= '<th>'.$column.'</th>';
+        }
+        $table .= '</tr>
+                    </tfoot>
+                </table>';
+
+        $pages = implode(', ', range(5,count($result),$step));
+        $script = '<script>
+                    $(document).ready(function() {
+                        $(\'#example\').DataTable({
+                            "lengthMenu": [['.$pages.', -1], ['.$pages.', "All"]]
+                        });
+                    } );
+                    </script>';
+        return $table . PHP_EOL . $script;
     }
 }

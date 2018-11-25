@@ -29,8 +29,8 @@ class Database
      */
     public function __construct()
     {
-        if (file_exists(SDR_PATH_CONFIG.DIRECTORY_SEPARATOR.'database.php')) {
-            require_once SDR_PATH_CONFIG.DIRECTORY_SEPARATOR.'database.php';
+        if (file_exists(SDR_PATH_CONFIG.'database.php')) {
+            require_once SDR_PATH_CONFIG.'database.php';
         }
         if (isset($db) && is_array($db)) {
             $this->host = isset($db['host']) ? $db['host'] : '';
