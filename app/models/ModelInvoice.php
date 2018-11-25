@@ -13,7 +13,7 @@ use PDO;
 class ModelInvoice extends ModelCore
 {
     public function getInvoices() {
-        $query = 'SELECT i.id, i.client, count(ii.id) 
+        $query = 'SELECT i.*, count(ii.id) as products 
                     FROM `invoices` i
                     JOIN invoice_items ii ON i.id = ii.invoice_id
                     GROUP BY i.id';
@@ -23,6 +23,6 @@ class ModelInvoice extends ModelCore
         if ( ! $sql->execute() ) {
             die(json_encode($sql->errorInfo()));
         }
-        return $sql->fetchAll( PDO::FETCH_OBJ );
+        return $sql->fetchAll( PDO::FETCH_ASSOC );
     }
 }

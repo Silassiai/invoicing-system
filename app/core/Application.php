@@ -85,17 +85,23 @@ class Application
         $this->params = count($request_parsed) > 0 ? $request_parsed : [];
 
         if (isset($this->routes[$class_name . '/' . $method_name]) || isset($this->routes[$class_name])) {
-            if ($method_name === '') {
+            if ($method_name === '') { // call the default method
                 $this->controller = 'controllers\\' . ucfirst(
                         $this->routes[$class_name][0]
                     );
                 $this->method = 'index';
             } else {
-                $this->controller = 'controllers\\' . ucfirst(
-                        $this->routes[$class_name . '/' . $method_name][0]
-                    );
+                if(isset($this->routes[$class_name . '/' . $method_name]))
+                {
+                    $this->controller = 'controllers\\' . ucfirst(
+                            $this->routes[$class_name . '/' . $method_name][0]
+                        );
+                } else {
+                    $this->controller = 'controllers\\' . 'Welcome';
+                }
                 $this->method = (isset($this->routes[$class_name . '/' . $method_name][1]) ?
                     $this->routes[$class_name . '/' . $method_name][1] : 'notFound');
+
             }
         } else {
             $this->controller = 'controllers\\' . 'Welcome';
@@ -216,12 +222,12 @@ class Application
     {
         if (!defined('BASE_URL')) {
             define('BASE_URL', $this->config['base_url']);
-            define('SDR_PATH_APP', SDR_BASE_PATH . DIRECTORY_SEPARATOR . 'app');
-            define('SDR_PATH_CONTROLLERS', SDR_PATH_APP . DIRECTORY_SEPARATOR . 'controller');
-            define('SDR_PATH_MODELS', SDR_PATH_APP . DIRECTORY_SEPARATOR . 'models');
-            define('SDR_PATH_CONFIG', SDR_PATH_APP . DIRECTORY_SEPARATOR . 'config');
-            define('SDR_PATH_CORE', SDR_PATH_APP . DIRECTORY_SEPARATOR . 'core');
-            define('SDR_PATH_VIEW', SDR_PATH_APP . DIRECTORY_SEPARATOR . 'views');
+            define('SDR_PATH_APP', SDR_BASE_PATH . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR);
+            define('SDR_PATH_CONTROLLERS', SDR_PATH_APP . 'controller' . DIRECTORY_SEPARATOR);
+            define('SDR_PATH_MODELS', SDR_PATH_APP . 'models' . DIRECTORY_SEPARATOR);
+            define('SDR_PATH_CONFIG', SDR_PATH_APP . 'config' . DIRECTORY_SEPARATOR);
+            define('SDR_PATH_CORE', SDR_PATH_APP . 'core' . DIRECTORY_SEPARATOR);
+            define('SDR_PATH_VIEW', SDR_PATH_APP . 'views' . DIRECTORY_SEPARATOR);
         }
     }
 
@@ -231,7 +237,7 @@ class Application
     public function loadFunctions()
     {
         if (!function_exists('dd')) {
-            require_once SDR_PATH_CORE . DIRECTORY_SEPARATOR . 'functions.php';
+            require_once SDR_PATH_CORE . 'functions.php';
         }
     }
 
@@ -253,8 +259,8 @@ class Application
      */
     public function setRoutes()
     {
-        if (file_exists(SDR_PATH_CONFIG . DIRECTORY_SEPARATOR . 'routes.php')) {
-            require SDR_PATH_CONFIG . DIRECTORY_SEPARATOR . 'routes.php';
+        if (file_exists(SDR_PATH_CONFIG . 'routes.php')) {
+            require SDR_PATH_CONFIG . 'routes.php';
             if (isset($route) && is_array($route)) {
                 $this->routes = $route;
             }
