@@ -11,7 +11,6 @@ echo $token;
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-
 <script src="<?php echo site_url('/public/js/javascript.js');?>"></script>
 
 <?php echo isset($scripts) ? $scripts : '' ;?>
