@@ -1,0 +1,21 @@
+{
+  "name": "silas/invoice-system",
+  "description": "Just a little invoice system project",
+  "authors": [
+    {
+      "name": "Silas",
+      "email": "silasderooy@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.28"
+  },
+  "autoload": {
+    "psr-4": {
+      "core\\": "app/core/",
+      "controllers\\": "app/controllers/",
+      "hooks\\": "app/hooks/",
+      "models\\": "app/models/"
+    }
+  }
+}
