@@ -9,3 +9,4 @@
 $route = [];
 $route['user/get'] = ['User', 'getUserById', ['int', 'string']];
 $route['invoices'] = ['Invoice', '', ['int', 'string']];
+$route['invoices/export'] = ['Invoice', 'exportCsv', ['int', 'string']];

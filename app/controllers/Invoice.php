@@ -20,4 +20,8 @@ class Invoice extends Controller
         $this->view('pages/invoices/index', $data);
         $this->view('templates/footer');
     }
+
+    public function exportCsv(){
+        $invoices = $this->model->getInvoices();
+    }
 }
