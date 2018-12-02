@@ -10,8 +10,10 @@ namespace lib;
 
 class CsvHelper
 {
-	public function arrayToCsv(array $csv = [], $csv_name = 'download'){
+	public function arrayToCsv(array $csv = []){
 		$keys = array_keys($csv[0]);
+
+		$csv_name = 'download_' . time();
 
 		ob_end_clean();
 
@@ -26,6 +28,6 @@ class CsvHelper
 		fclose($fp);
 
 		header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=download.csv');
+        header('Content-Disposition: attachment; filename='.$csv_name.'.csv');
 	}
 }
