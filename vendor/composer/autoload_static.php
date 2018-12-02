@@ -11,6 +11,10 @@ class ComposerStaticInit69bc54e31ea0d253b17de71b465ca0f5
         array (
             'models\\' => 7,
         ),
+        'l' => 
+        array (
+            'lib\\' => 4,
+        ),
         'h' => 
         array (
             'hooks\\' => 6,
@@ -26,6 +30,10 @@ class ComposerStaticInit69bc54e31ea0d253b17de71b465ca0f5
         'models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/models',
+        ),
+        'lib\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/lib',
         ),
         'hooks\\' => 
         array (

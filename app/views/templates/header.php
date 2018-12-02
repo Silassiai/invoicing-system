@@ -29,7 +29,7 @@
                 <a class="nav-link" href="<?php echo site_url() ;?>">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo site_url('/invoices') ;?>">Invoides</a>
+                <a class="nav-link" href="<?php echo site_url('/invoices') ;?>">Invoices</a>
             </li>
         </ul>
     </div>

@@ -97,14 +97,14 @@ class Application
                             $this->routes[$class_name . '/' . $method_name][0]
                         );
                 } else {
-                    $this->controller = 'controllers\\' . 'Welcome';
+                    $this->controller = 'controllers\\' . 'Invoice';
                 }
                 $this->method = (isset($this->routes[$class_name . '/' . $method_name][1]) ?
                     $this->routes[$class_name . '/' . $method_name][1] : 'notFound');
 
             }
         } else {
-            $this->controller = 'controllers\\' . 'Welcome';
+            $this->controller = 'controllers\\' . 'Invoice';
             if ($class_name === '' && $method_name === '') {
                 $this->method = 'index';
             } else {

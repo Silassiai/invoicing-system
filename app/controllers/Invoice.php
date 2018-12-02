@@ -10,6 +10,7 @@ namespace controllers;
 
 use core\Controller as Controller;
 use models\ModelInvoice;
+use lib\CsvHelper;
 
 class Invoice extends Controller
 {
@@ -22,6 +23,13 @@ class Invoice extends Controller
     }
 
     public function exportCsv(){
+        $this->model = new ModelInvoice();
+
         $invoices = $this->model->getInvoices();
+
+        $csv = new CsvHelper();
+        $csv->arrayToCsv($invoices);
+        
+        $this->index();
     }
 }
