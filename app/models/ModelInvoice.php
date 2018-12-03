@@ -5,6 +5,7 @@
  * Date: 25-11-2018
  * Time: 0:25
  */
+
 namespace models;
 
 use core\ModelCore as ModelCore;
@@ -12,7 +13,8 @@ use PDO;
 
 class ModelInvoice extends ModelCore
 {
-    public function getInvoices() {
+    public function getInvoices()
+    {
         $query = 'SELECT i.*, count(ii.id) as products 
                     FROM `invoices` i
                     JOIN invoice_items ii ON i.id = ii.invoice_id
@@ -20,9 +22,9 @@ class ModelInvoice extends ModelCore
 
         $sql = $this->db->prepare($query);
 
-        if ( ! $sql->execute() ) {
+        if (!$sql->execute()) {
             die(json_encode($sql->errorInfo()));
         }
-        return $sql->fetchAll( PDO::FETCH_ASSOC );
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 }

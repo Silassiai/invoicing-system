@@ -10,6 +10,7 @@
  */
 
 namespace core;
+
 use PDO;
 
 class Database
@@ -29,8 +30,8 @@ class Database
      */
     public function __construct()
     {
-        if (file_exists(SDR_PATH_CONFIG.'database.php')) {
-            require_once SDR_PATH_CONFIG.'database.php';
+        if (file_exists(SDR_PATH_CONFIG . 'database.php')) {
+            require_once SDR_PATH_CONFIG . 'database.php';
         }
         if (isset($db) && is_array($db)) {
             $this->host = isset($db['host']) ? $db['host'] : '';
@@ -38,10 +39,9 @@ class Database
             $this->pass = isset($db['pass']) ? $db['pass'] : '';
             $this->name = isset($db['name']) ? $db['name'] : '';
         }
-
-        $this->conn = new PDO("mysql:host={$this->host};
-    dbname={$this->name}", $this->user,$this->pass,
-            [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
+        $dsn = "mysql:host={$this->host};dbname={$this->name}";
+        $driver_options = [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"];
+        $this->conn = new PDO($dsn, $this->user, $this->pass, $driver_options);
     }
 
     /**
@@ -54,9 +54,8 @@ class Database
      */
     public static function load(ModelCore $model)
     {
-        if($model instanceof ModelCore){
-            if(!self::$instance)
-            {
+        if ($model instanceof ModelCore) {
+            if (!self::$instance) {
                 self::$instance = new Database();
             }
             $model->setConnection(self::$instance->connect());

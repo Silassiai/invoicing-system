@@ -6,12 +6,15 @@
  * Time: 22:36
  */
 
-function dd($obj){
+function dd($obj)
+{
     echo '<pre>';
     var_dump($obj);
-    echo '</pre>'; exit;
+    echo '</pre>';
+    exit;
 }
 
-function site_url($uri = ''){
+function site_url($uri = '')
+{
     return BASE_URL . $uri;
 }

@@ -9,6 +9,7 @@
  */
 
 namespace core;
+
 use PDO;
 
 class ModelCore
@@ -22,7 +23,8 @@ class ModelCore
 //        $this->db = $db->connect();
     }
 
-    public function setConnection($connection){
+    public function setConnection($connection)
+    {
         $this->db = $connection;
     }
 }

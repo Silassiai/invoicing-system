@@ -13,26 +13,28 @@ use PDO;
 
 class ModelUser extends ModelCore
 {
-    public function getUser($userid = 0) {
+    public function getUser($userid = 0)
+    {
         $query = 'SELECT * FROM user WHERE userid = :userid';
         $sql = $this->db->prepare($query);
         $sql->bindParam(':userid', $userid, PDO::PARAM_INT);
 
-        if ( ! $sql->execute() ) {
+        if (!$sql->execute()) {
             die(json_encode($sql->errorInfo()));
         }
-        return $sql->fetch( PDO::FETCH_OBJ );
+        return $sql->fetch(PDO::FETCH_OBJ);
     }
 
-    public function checkUserCredentials($username = '', $password){
+    public function checkUserCredentials($username, $password)
+    {
         $query = 'SELECT * FROM user WHERE username = :username AND password = :password';
         $sql = $this->db->prepare($query);
         $sql->bindParam(':username', $username, PDO::PARAM_STR);
         $sql->bindParam(':password', $password, PDO::PARAM_STR);
 
-        if ( ! $sql->execute() ) {
+        if (!$sql->execute()) {
             die(json_encode($sql->errorInfo()));
         }
-        return $sql->fetch( PDO::FETCH_OBJ );
+        return $sql->fetch(PDO::FETCH_OBJ);
     }
 }

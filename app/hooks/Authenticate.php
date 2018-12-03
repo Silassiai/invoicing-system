@@ -9,12 +9,14 @@
  */
 
 namespace hooks;
+
 use models\ModelUser as ModelUser;
 
 use core\Application as Application;
 
 
-class Authenticate {
+class Authenticate
+{
     CONST COMPANY_LOGO = 'url_to_companylogo.png';
     CONST BTN_COLOR = '#337ab7';
 
@@ -23,12 +25,13 @@ class Authenticate {
      * start session
      * check if user has logged in, show login screen if not logged in
      */
-    final public static function check() {
-        if(isset(Application::$request['logout'])){
+    final public static function check()
+    {
+        if (isset(Application::$request['logout'])) {
             Application::sessionDestroy(true);
         }
 
-        if ( isset( Application::$request['username'] ) && isset( Application::$request['password'] ) ) {
+        if (isset(Application::$request['username']) && isset(Application::$request['password'])) {
 
             //TODO: add user table and uncomment this lines to get the real authentication to work
 //            $model_user = new ModelUser();
@@ -38,19 +41,20 @@ class Authenticate {
 //            );
 //
 //            if(is_object($user) && $user !== false){
-                Application::$sess_ref['user'] = Application::$request['username'];
+            Application::$sess_ref['user'] = Application::$request['username'];
 //            }
 
         }
 
-        if ( ! isset( Application::$sess_ref['user'] ) ) {
+        if (!isset(Application::$sess_ref['user'])) {
             self::showLogin();
         }
 
         self::showLogout();
     }
 
-    public function checkAuth(){
+    public function checkAuth()
+    {
         self::check();
     }
 
@@ -59,7 +63,8 @@ class Authenticate {
      * Show login page
      * TODO: this wil be the default login page if not is defined in a controller
      */
-    final private static function showLogin() {
+    final private static function showLogin()
+    {
         ; ?>
         <html>
         <head>
@@ -155,19 +160,19 @@ class Authenticate {
                     background: #3594D2;
                 }
 
-                .company-logo{
+                .company-logo {
                     margin: 20px;
                 }
 
                 a {
-                    text-decoration:none;
+                    text-decoration: none;
                 }
             </style>
         </head>
         <body>
         <form method="post" action="">
             <div class="box">
-                <img src="<?php echo Authenticate::COMPANY_LOGO ;?>" class="company-logo">
+                <img src="<?php echo Authenticate::COMPANY_LOGO; ?>" class="company-logo">
 
                 <input type="text" name="username" placeholder="gebruiker" onFocus="field_focus(this, 'email');"
                        onblur="field_blur(this, 'email');" class="email"/>
@@ -218,9 +223,10 @@ class Authenticate {
      * showLogout
      * add login on top of the screen
      */
-    final public static function showLogout() {
-        ;?>
-        <form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
+    final public static function showLogout()
+    {
+        ; ?>
+        <form method="post" action="<?php echo str_replace('index.php', '', $_SERVER['PHP_SELF']); ?>">
             <input type="hidden" name="logout">
             <input type="submit" value="Log uit">
             </div> <!-- End Box -->
