@@ -14,22 +14,25 @@ use lib\CsvHelper;
 
 class Invoice extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $this->model = new ModelInvoice();
-        $data['invoices'] = $this->paginate($this->model->getInvoices());
-        $this->view('templates/header');
-        $this->view('pages/invoices/index', $data);
-        $this->view('templates/footer');
+        $data['invoices'] = $this->view->paginate($this->model->getInvoices());
+
+        $this->view->load('templates/header');
+        $this->view->load('pages/invoices/index', $data);
+        $this->view->load('templates/footer');
     }
 
-    public function exportCsv(){
+    public function exportCsv()
+    {
         $this->model = new ModelInvoice();
 
         $invoices = $this->model->getInvoices();
 
         $csv = new CsvHelper();
         $csv->arrayToCsv($invoices);
-        
+
         $this->index();
     }
 }

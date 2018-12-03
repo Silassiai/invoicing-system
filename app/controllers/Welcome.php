@@ -10,10 +10,12 @@ namespace controllers;
 
 use core\Controller as Controller;
 
-class Welcome extends Controller{
-    public function index(){
-        $this->view('templates/header');
-        $this->view('pages/index');
-        $this->view('templates/footer');
+class Welcome extends Controller
+{
+    public function index()
+    {
+        $this->view->load('templates/header');
+        $this->view->load('pages/index');
+        $this->view->load('templates/footer');
     }
 }

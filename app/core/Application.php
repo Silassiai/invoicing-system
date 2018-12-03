@@ -86,16 +86,11 @@ class Application
 
         if (isset($this->routes[$class_name . '/' . $method_name]) || isset($this->routes[$class_name])) {
             if ($method_name === '') { // call the default method
-                $this->controller = 'controllers\\' . ucfirst(
-                        $this->routes[$class_name][0]
-                    );
+                $this->controller = 'controllers\\' . ucfirst($this->routes[$class_name][0]);
                 $this->method = 'index';
             } else {
-                if(isset($this->routes[$class_name . '/' . $method_name]))
-                {
-                    $this->controller = 'controllers\\' . ucfirst(
-                            $this->routes[$class_name . '/' . $method_name][0]
-                        );
+                if (isset($this->routes[$class_name . '/' . $method_name])) {
+                    $this->controller = 'controllers\\' . ucfirst($this->routes[$class_name . '/' . $method_name][0]);
                 } else {
                     $this->controller = 'controllers\\' . 'Invoice';
                 }
@@ -119,7 +114,7 @@ class Application
      */
     public function execute()
     {
-        $controller = new $this->controller;
+        $controller = new $this->controller();
         call_user_func_array([$controller, $this->method], $this->params);
     }
 
@@ -180,7 +175,7 @@ class Application
      * sessionDestroy
      * @param bool $redirect
      */
-    final static public function sessionDestroy($redirect = false)
+    final public static function sessionDestroy($redirect = false)
     {
         Application::$sess_ref = [];
 
@@ -275,7 +270,7 @@ class Application
         if (isset($this->hooks['pre_controller'])) {
             foreach ($this->hooks['pre_controller'] as $hook) {
                 $class_name = 'hooks\\' . $hook['class'];
-                $instance = new  $class_name;
+                $instance = new  $class_name();
                 $method = $hook['method'];
                 $instance->$method();
             }
